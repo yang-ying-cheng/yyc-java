@@ -23,6 +23,7 @@ public class WaitOrNotifyThread {
                 while (flag){
                     try {
                         System.out.println(Thread.currentThread() + " flag is true. wait @ " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
+                        // wait的时候是会释放锁，要不然notify是获取不到锁的
                         lock.wait();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -46,15 +47,17 @@ public class WaitOrNotifyThread {
                 // 睡眠5秒
                 try {
                     SleepUtils.second(5);
+                    System.out.println(Thread.currentThread() + " hold lock. notify @ end" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
-//            try {
-//                SleepUtils.second(1);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
+            // 测试waitThread线程
+            try {
+                SleepUtils.second(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             // 再次加锁
             synchronized (lock){
                 System.out.println(Thread.currentThread() + " hold lock again. sleep @ " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
