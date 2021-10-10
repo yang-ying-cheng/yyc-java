@@ -11,6 +11,7 @@ public class ExecutorsNewFixedThreadPool {
         ExecutorService singleThreadExecutor = Executors.newSingleThreadExecutor();
         // 一池可扩容线程
         ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
+
         //fun(fixtThreadPool);
         //fun(singleThreadExecutor);
         fun(cachedThreadPool);
