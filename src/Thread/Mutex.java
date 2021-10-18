@@ -7,6 +7,7 @@ import java.util.concurrent.locks.Lock;
 
 /**
  * 独占锁(不可重入锁)
+ * 它在同一时刻只允许一个线程占用锁。Metex中定义了一个静态内部类，该内部类继承了同步器并实现了独占式获取和释放同步状态。
  */
 public class Mutex implements Lock {
     // 静态内部类，自定义同步器,推荐使用静态内部类？
