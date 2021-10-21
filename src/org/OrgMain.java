@@ -80,7 +80,7 @@ public class OrgMain {
      * @return 分组结果
      */
     public static <K, T> Map<K, List<T>> listToGroup(List<T> list, Function<T, K> function) {
-        return listToGroup(list,function);
+        return listToGroup(list, function);
     }
 
     /**
@@ -111,22 +111,22 @@ public class OrgMain {
      * @return 分组结果(自定义返回Map类型)
      */
     public static <K, T, A> Map<K, List<A>> listToGroup(List<T> list, Function<T, K> function, Supplier<Map<K, List<A>>> mapFactory, Function<T, A> taFunction) {
-        return listToGroup(list,function,mapFactory,Collectors.mapping(taFunction,Collectors.toList()));
+        return listToGroup(list, function, mapFactory, Collectors.mapping(taFunction, Collectors.toList()));
     }
 
     /**
      * 通用类型分组
-     * @param list 目标集合
-     * @param function 表达式
+     *
+     * @param list       目标集合
+     * @param function   表达式
      * @param mapFactory 表达式
-     * @param collector 表达式
-     * @param <K> key
-     * @param <T> 实体类
-     * @param <A> 分组后组内的数据类型
-     * @param <M> 参数
+     * @param collector  表达式
+     * @param <K>        key
+     * @param <T>        实体类
+     * @param <M>        参数
      * @return 分组结果
      */
-    public static <K, T, A, M> Map<K, List<A>> listToGroup(List<T> list, Function<T, K> function, Supplier<Map<K, List<A>>> mapFactory, Collector<T, M, List<A>> collector) {
+    public static <K, T, M, D> Map<K, D> listToGroup(List<T> list, Function<T, K> function, Supplier<Map<K, D>> mapFactory, Collector<T, M, D> collector) {
         return list.stream().collect(Collectors.groupingBy(function, mapFactory, collector));
     }
 
