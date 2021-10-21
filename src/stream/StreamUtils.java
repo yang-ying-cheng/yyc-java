@@ -1,6 +1,5 @@
-package org;
+package stream;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,34 +9,11 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
- * 练习生成组织树结构，目的：
- * 公司业务中有类似的表结构，没有存某一个组织的祖先节点，固看同事递归查询数据库，速度极慢，所以模拟实现一下不递归查询数据库的办法
+ * stream 通用代码类型封装
  */
-public class OrgMain {
-    public static void main(String[] args) {
-        // 模拟组织树结构
-        List<Org> orgList = Arrays.asList(
-                new Org(1, "A1", 100, null),
-                new Org(2, "A2", 200, 1),
-                new Org(3, "A3", 300, 4),
-                new Org(4, "A4", 400, 1),
-                new Org(5, "A5", 500, 1),
-                new Org(6, "A6", 600, 2),
-                new Org(7, "A7", 700, 3),
-                new Org(8, "A8", 800, 6),
-                new Org(9, "A9", 900, 5),
-                new Org(10, "A10", 1000, 6),
-                new Org(11, "A11", 101, 10),
-                new Org(12, "A12", 102, 11)
-        );
-        Map<Integer, Stream<String>> collect = orgList.stream().collect(Collectors.groupingBy(e -> e.getOrgCd(), Collectors.collectingAndThen(Collectors.toList(), list -> list.stream().map(e -> e.getOrgName()))));
-
-
-    }
-
+public class StreamUtils {
     /**
      * 通用转map方法(当key一样的时候，默认采用后value)
      *
@@ -98,6 +74,7 @@ public class OrgMain {
         return listToGroup(list, function, HashMap::new, collector);
     }
 
+
     /**
      * 通用类型分组
      *
@@ -110,7 +87,7 @@ public class OrgMain {
      * @param <A>        分组后组内的数据类型
      * @return 分组结果(自定义返回Map类型)
      */
-    public static <K, T, A> Map<K, List<A>> listToGroup(List<T> list, Function<T, K> function, Supplier<Map<K, List<A>>> mapFactory, Function<T, A> taFunction) {
+    public static <K, T, A> Map<K, List<A>> listToGroup(List<T> list, Function<T, K> function, Supplier mapFactory, Function<T, A> taFunction) {
         return listToGroup(list, function, mapFactory, Collectors.mapping(taFunction, Collectors.toList()));
     }
 
@@ -129,6 +106,4 @@ public class OrgMain {
     public static <K, T, M, D> Map<K, D> listToGroup(List<T> list, Function<T, K> function, Supplier<Map<K, D>> mapFactory, Collector<T, M, D> collector) {
         return list.stream().collect(Collectors.groupingBy(function, mapFactory, collector));
     }
-
-
 }

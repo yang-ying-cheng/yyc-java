@@ -1,4 +1,4 @@
-package org;
+package orgFolder;
 
 /**
  * 组织机构，
