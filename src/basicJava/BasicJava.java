@@ -1,3 +1,5 @@
+package basicJava;
+
 public class BasicJava {
     public static void main(String[] args) {
         Children children = new Children();
