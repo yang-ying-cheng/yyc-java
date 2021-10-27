@@ -150,12 +150,19 @@ public class Mutex implements Lock {
      */
     public static void sumLock() {
 
-        // 加锁
-        lock.lock();
-        a++;
-        System.out.println(a);
-        // 解锁
-        lock.unlock();
+
+        try{
+            // 利用try-finally,避免死锁
+            // 加锁
+            lock.lock();
+            a++;
+            System.out.println(a);
+        }finally {
+            // 解锁
+            lock.unlock();
+        }
+
+
     }
 
 
