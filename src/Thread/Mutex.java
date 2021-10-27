@@ -4,6 +4,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.AbstractQueuedSynchronizer;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * 独占锁(不可重入锁)
@@ -11,23 +12,25 @@ import java.util.concurrent.locks.Lock;
  */
 public class Mutex implements Lock {
     // 静态内部类，自定义同步器,推荐使用静态内部类？
-    private static class Sync extends AbstractQueuedSynchronizer{
+    private static class Sync extends AbstractQueuedSynchronizer {
         // 返回当前状态的值
-        protected boolean isHeldExclusively(){
+        protected boolean isHeldExclusively() {
             return getState() == 1;
         }
+
         // 当状态为0的时候获取锁
-        public boolean tryAcquire(int acquires){
-            // 0表示锁定状态，1表示锁定状态
-            if(compareAndSetState(0,1)){
+        public boolean tryAcquire(int acquires) {
+            // 0表示未锁定状态，1表示锁定状态
+            if (compareAndSetState(0, 1)) {
                 setExclusiveOwnerThread(Thread.currentThread());
                 return true;
             }
             return false;
         }
+
         // 释放锁，将状态设置为 0，试图设置状态来反映独占模式下的一个释放。
-        protected boolean tryRelease(int release){
-            if(getState() == 0){
+        protected boolean tryRelease(int release) {
+            if (getState() == 0) {
                 throw new IllegalMonitorStateException();
             }
             // 设置当前拥有独占访问权限的线程。 null 参数表示没有线程拥有访问权限
@@ -36,16 +39,18 @@ public class Mutex implements Lock {
             setState(0);
             return true;
         }
-        Condition newCondition(){
+
+        Condition newCondition() {
             // 返回一个Condition，每个condition都包含了一个condition队列
             return new ConditionObject();
         }
     }
+
     // 仅需要将操作代理到Sync上即可
     private final Sync sync = new Sync();
 
     @Override
-    public void lock(){
+    public void lock() {
         // 以独占模式获取对象，忽略中断
         sync.acquire(1);
     }
@@ -59,7 +64,7 @@ public class Mutex implements Lock {
     @Override
     public boolean tryLock(long timeout, TimeUnit unit) throws InterruptedException {
         // 试图以独占模式获取对象，如果被中断则中止，如果到了给定超时时间，则会失败。
-        return sync.tryAcquireNanos(1,unit.toNanos(timeout));
+        return sync.tryAcquireNanos(1, unit.toNanos(timeout));
     }
 
     @Override
@@ -74,12 +79,12 @@ public class Mutex implements Lock {
         return sync.newCondition();
     }
 
-    public boolean isLocked(){
+    public boolean isLocked() {
         // 判断同步对于当前线程是否是独立的
         return sync.isHeldExclusively();
     }
 
-    public boolean hasQueuedThreads(){
+    public boolean hasQueuedThreads() {
         // 查询是否有正在等待获取的任何线程。
         return sync.hasQueuedThreads();
     }
@@ -88,6 +93,69 @@ public class Mutex implements Lock {
     public void lockInterruptibly() throws InterruptedException {
         // 以独占模式获取对象，如果被中断则中止。
         sync.acquireInterruptibly(1);
+    }
+
+    public static int a = 0;
+    static Mutex lock = new Mutex();
+    static ReentrantLock reentrantLock = new ReentrantLock();
+
+    public static void main(String[] args) {
+//        concurrentFunction();
+        noConcurrentFunction();
+    }
+
+    private static void noConcurrentFunction(){
+        for (int i = 0; i < 10; i++) {
+
+            Thread thread = new Thread(() -> {
+                try {
+                    TimeUnit.SECONDS.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                sumLock();
+            }, "thread-" + i);
+            thread.start();
+        }
+    }
+
+    /**
+     * 并发的方法
+     */
+    private static void concurrentFunction() {
+        for (int i = 0; i < 10; i++) {
+
+            Thread thread = new Thread(() -> {
+                try {
+                    TimeUnit.MILLISECONDS.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                sum();
+            }, "thread-" + i);
+            thread.start();
+        }
+    }
+
+    /**
+     * 让a叠加
+     */
+    public static void sum() {
+        a++;
+        System.out.println(a);
+    }
+
+    /**
+     * 加锁让a叠加
+     */
+    public static void sumLock() {
+
+        // 加锁
+        lock.lock();
+        a++;
+        System.out.println(a);
+        // 解锁
+        lock.unlock();
     }
 
 
