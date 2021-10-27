@@ -22,6 +22,7 @@ public class Mutex implements Lock {
         public boolean tryAcquire(int acquires) {
             // 0表示未锁定状态，1表示锁定状态
             if (compareAndSetState(0, 1)) {
+                // 设置当前拥有独占访问权限的线程。 null 参数表示没有线程拥有访问权限。此方法不会以其他方式强加任何同步或易失性字段访问
                 setExclusiveOwnerThread(Thread.currentThread());
                 return true;
             }
