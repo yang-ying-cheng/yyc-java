@@ -14,8 +14,12 @@ public class FunctionTest {
 //        list.add(new Student("2", "b"));
         list.add(new Student("3", 3));
         list.add(new Student("4", 5));
-        Map<String, Integer> stringStringMap = toMap(list, Student::getKey, Student::getAge,e->e.getAge() !=null);
-        System.out.println(stringStringMap.toString());
+        String collect = list.stream().map(Student::getKey).collect(Collectors.joining("&"));
+        System.out.println(collect);
+
+
+//        Map<String, Integer> stringStringMap = toMap(list, Student::getKey, Student::getAge,e->e.getAge() !=null);
+//        System.out.println(stringStringMap.toString());
     }
 
 
