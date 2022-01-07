@@ -12,6 +12,9 @@ target/
 .project
 .classpath
 
+# java
+*.class
+
 
 # temp ignore
 *.log
@@ -44,4 +47,4 @@ Thumbs.db
 /src/main/webapp/WEB-INF/classes/*
 /src/main/webapp/userfiles/*
 /target/
-/out/*
+/out/
