@@ -27,8 +27,8 @@ public class BigDecimalUtilsFunction {
      * @param b 参数 B
      * @return 相加结果
      */
-    public static BigDecimal calculateAdd(BigDecimal a, BigDecimal b) {
-        return a.add(b);
+    public static <T> BigDecimal calculateAdd(T a, T b) {
+        return toBigDecimal(a).add(toBigDecimal(b));
     }
 
     /**
@@ -38,8 +38,8 @@ public class BigDecimalUtilsFunction {
      * @param b 参数 B
      * @return 相减结果
      */
-    public static BigDecimal calculateSubtract(BigDecimal a, BigDecimal b) {
-        return a.subtract(b);
+    public static <T> BigDecimal calculateSubtract(T a, T b) {
+        return toBigDecimal(a).subtract(toBigDecimal(b));
     }
 
     /**
@@ -49,8 +49,8 @@ public class BigDecimalUtilsFunction {
      * @param b 参数 B
      * @return 积
      */
-    public static BigDecimal calculateMultiply(BigDecimal a, BigDecimal b) {
-        return a.multiply(b);
+    public static <T> BigDecimal calculateMultiply(T a, T b) {
+        return toBigDecimal(a).multiply(toBigDecimal(b));
     }
 
     /**
@@ -62,8 +62,8 @@ public class BigDecimalUtilsFunction {
      * @param roundingMode 保留小数规则
      * @return 商
      */
-    public static BigDecimal calculateDivide(BigDecimal a, BigDecimal b, int scale, RoundingMode roundingMode) {
-        return a.divide(b, scale, roundingMode);
+    public static <T> BigDecimal calculateDivide(T a, T b, int scale, RoundingMode roundingMode) {
+        return toBigDecimal(a).divide(toBigDecimal(b), scale, roundingMode);
     }
 
     /**
@@ -73,8 +73,8 @@ public class BigDecimalUtilsFunction {
      * @param b 参数 B
      * @return 商
      */
-    public static BigDecimal calculateDivide(BigDecimal a, BigDecimal b) {
-        return calculateDivide(a, b, 2, RoundingMode.HALF_UP);
+    public static <T> BigDecimal calculateDivide(T a, T b) {
+        return toBigDecimal(a).divide(toBigDecimal(b), 2, RoundingMode.HALF_UP);
     }
 
     /**
@@ -85,10 +85,11 @@ public class BigDecimalUtilsFunction {
      * @param scale 保留小数位数
      * @return 商
      */
-    public static BigDecimal calculateDivide(BigDecimal a, BigDecimal b, int scale) {
+    public static <T> BigDecimal calculateDivide(T a, T b, int scale) {
         return calculateDivide(a, b, scale, RoundingMode.HALF_UP);
     }
     // --------------------------比较大小---------------------------
+
 
     /**
      * A 大于 B
@@ -97,8 +98,8 @@ public class BigDecimalUtilsFunction {
      * @param b 参数 B
      * @return true :A > B ;false A < B
      */
-    public static boolean isAMoreThanB(BigDecimal a, BigDecimal b) {
-        return a.compareTo(b) > 0;
+    public static <T> boolean isAMoreThanB(T a, T b) {
+        return toBigDecimal(a).compareTo(toBigDecimal(b)) > 0;
     }
 
     /**
@@ -108,8 +109,8 @@ public class BigDecimalUtilsFunction {
      * @param b 参数 B
      * @return true :A < B ;false A > B
      */
-    public static boolean isALessThanB(BigDecimal a, BigDecimal b) {
-        return a.compareTo(b) < 0;
+    public static <T> boolean isALessThanB(T a, T b) {
+        return toBigDecimal(a).compareTo(toBigDecimal(b)) < 0;
     }
 
     /**
@@ -119,8 +120,8 @@ public class BigDecimalUtilsFunction {
      * @param b 参数 B
      * @return true :A == B ;false A ！= B
      */
-    public static boolean isAEqualB(BigDecimal a, BigDecimal b) {
-        return a.compareTo(b) == 0;
+    public static <T> boolean isAEqualB(T a, T b) {
+        return toBigDecimal(a).compareTo(toBigDecimal(b)) == 0;
     }
 
     /**
@@ -130,8 +131,8 @@ public class BigDecimalUtilsFunction {
      * @param b 参数 B
      * @return true :A >= B ;false A < B
      */
-    public static boolean isAMoreThanOrEqualB(BigDecimal a, BigDecimal b) {
-        return a.compareTo(b) > -1;
+    public static <T> boolean isAMoreThanOrEqualB(T a, T b) {
+        return toBigDecimal(a).compareTo(toBigDecimal(b)) > -1;
     }
 
     /**
@@ -141,13 +142,13 @@ public class BigDecimalUtilsFunction {
      * @param b 参数 B
      * @return true :A <= B ;false A > B
      */
-    public static boolean isALessThanOrEqualB(BigDecimal a, BigDecimal b) {
-        return a.compareTo(b) < 1;
+    public static <T> boolean isALessThanOrEqualB(T a, T b) {
+        return toBigDecimal(a).compareTo(toBigDecimal(b)) < 1;
     }
 
     public static void main(String[] args) {
-        BigDecimal a = toBigDecimal(1.01);
-        BigDecimal b = toBigDecimal(1.01);
+        int a = 1;
+        int b = 1;
         System.out.println("a+b:" + calculateAdd(a, b));
         System.out.println("a-b:" + calculateSubtract(a, b));
         System.out.println("a*b:" + calculateMultiply(a, b));
