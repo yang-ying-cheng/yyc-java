@@ -147,8 +147,8 @@ public class BigDecimalUtilsFunction {
     }
 
     public static void main(String[] args) {
-        int a = 1;
-        int b = 1;
+        BigDecimal a = BigDecimal.ONE;
+        BigDecimal b = BigDecimal.valueOf(3);
         System.out.println("a+b:" + calculateAdd(a, b));
         System.out.println("a-b:" + calculateSubtract(a, b));
         System.out.println("a*b:" + calculateMultiply(a, b));
