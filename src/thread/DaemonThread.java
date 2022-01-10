@@ -1,4 +1,4 @@
-package Thread;
+package thread;
 
 /**
  * 守护线程

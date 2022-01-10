@@ -1,4 +1,4 @@
-package Thread;
+package thread;
 
 public class TestSynchronized {
     public static void main(String[] args) {

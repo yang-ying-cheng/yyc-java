@@ -1,4 +1,4 @@
-package Thread;
+package thread;
 
 public interface ThreadPool<Job extends Runnable> {
     // 执行一个 job，这个 job需要实现 Runnable

@@ -1,4 +1,4 @@
-package ExceptionFolder;
+package exceptionfolder;
 
 public class TryTest {
     public static void main(String[] args) {
