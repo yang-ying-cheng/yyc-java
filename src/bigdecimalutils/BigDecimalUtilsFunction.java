@@ -15,7 +15,14 @@ public class BigDecimalUtilsFunction {
      * @return BigDecimal
      */
     public static <T> BigDecimal toBigDecimal(T t) {
-        return new BigDecimal(String.valueOf(t));
+        if (t == null) {
+            throw new NullPointerException("t不能为 null！");
+        }
+        String str = String.valueOf(t);
+        if (!str.matches("[+-]?[0-9]+(\\.[0-9]+)?")) {
+            throw new IllegalArgumentException("参数不符合规范！");
+        }
+        return new BigDecimal(str);
     }
 
     // --------------------------基本运算---------------------------
@@ -147,19 +154,20 @@ public class BigDecimalUtilsFunction {
     }
 
     public static void main(String[] args) {
-        BigDecimal a = BigDecimal.ONE;
-        BigDecimal b = BigDecimal.valueOf(3);
-        System.out.println("a+b:" + calculateAdd(a, b));
-        System.out.println("a-b:" + calculateSubtract(a, b));
-        System.out.println("a*b:" + calculateMultiply(a, b));
-        System.out.println("a/b:" + calculateDivide(a, b));
-        System.out.println("a/b:" + calculateDivide(a, b, 2));
-        System.out.println("a/b:" + calculateDivide(a, b, 4, RoundingMode.HALF_UP));
-        System.out.println("a>b:" + isAMoreThanB(a, b));
-        System.out.println("a<b:" + isALessThanB(a, b));
-        System.out.println("a=b:" + isAEqualB(a, b));
-        System.out.println("a>=b:" + isAMoreThanOrEqualB(a, b));
-        System.out.println("a<=b:" + isALessThanOrEqualB(a, b));
+        //BigDecimal a = BigDecimal.ONE;
+        //BigDecimal b = BigDecimal.valueOf(3);
+        System.out.println(toBigDecimal("-1:2000000"));
+        //System.out.println("a+b:" + calculateAdd(a, b));
+        //System.out.println("a-b:" + calculateSubtract(a, b));
+        //System.out.println("a*b:" + calculateMultiply(a, b));
+        //System.out.println("a/b:" + calculateDivide(a, b));
+        //System.out.println("a/b:" + calculateDivide(a, b, 2));
+        //System.out.println("a/b:" + calculateDivide(a, b, 4, RoundingMode.HALF_UP));
+        //System.out.println("a>b:" + isAMoreThanB(a, b));
+        //System.out.println("a<b:" + isALessThanB(a, b));
+        //System.out.println("a=b:" + isAEqualB(a, b));
+        //System.out.println("a>=b:" + isAMoreThanOrEqualB(a, b));
+        //System.out.println("a<=b:" + isALessThanOrEqualB(a, b));
 
     }
 
