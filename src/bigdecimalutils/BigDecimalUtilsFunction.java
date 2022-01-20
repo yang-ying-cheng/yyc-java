@@ -156,7 +156,7 @@ public class BigDecimalUtilsFunction {
     public static void main(String[] args) {
         //BigDecimal a = BigDecimal.ONE;
         //BigDecimal b = BigDecimal.valueOf(3);
-        System.out.println(toBigDecimal("1.2000000"));
+        System.out.println(toBigDecimal(new BigDecimal("20")));
         //System.out.println("a+b:" + calculateAdd(a, b));
         //System.out.println("a-b:" + calculateSubtract(a, b));
         //System.out.println("a*b:" + calculateMultiply(a, b));
