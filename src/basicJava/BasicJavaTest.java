@@ -1,6 +1,6 @@
 package basicJava;
 
-public class BasicJava {
+public class BasicJavaTest {
     public static void main(String[] args) {
         Children children = new Children();
         children.fun();
@@ -25,6 +25,17 @@ class Children extends Parent{
     public void tryFun(){
 
         System.out.println("我是子类tryFun方法");
-        super.tryFun();
+        //super.tryFun();
+    }
+}
+
+class Children1 extends Parent{
+    /**
+     * 重写父类的方法
+     */
+    public void tryFun(){
+
+        System.out.println("我是子类tryFun方法");
+        //super.tryFun();
     }
 }
