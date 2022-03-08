@@ -1,7 +1,5 @@
 package dataStructure;
 
-import java.util.LinkedList;
-
 /**
  * @author 杨英承
  * @version 1.0.0
@@ -10,7 +8,7 @@ import java.util.LinkedList;
 
 public class TestLinkedList {
     public static void main(String[] args) {
-        MyList<Integer> list = new MyList<>();
+        SingleLinkedList<Integer> list = new SingleLinkedList<>();
         list.add(1);
         list.add(2);
         list.add(3);
@@ -25,7 +23,7 @@ public class TestLinkedList {
 
     }
 
-    private static void delNode(MyList<Integer> list,int delIndex) {
+    private static void delNode(SingleLinkedList<Integer> list, int delIndex) {
         int size;
         Integer remove = list.remove(delIndex);
         System.out.println();
@@ -34,7 +32,7 @@ public class TestLinkedList {
         fun(list, size);
     }
 
-    private static void fun(MyList<Integer> list, int size) {
+    private static void fun(SingleLinkedList<Integer> list, int size) {
         for (int i = 0; i < size - 1; i++) {
             System.out.print(list.get(i) + " -> ");
         }

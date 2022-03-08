@@ -7,7 +7,7 @@ package dataStructure;
  * @date 2022/3/7 14:12
  */
 
-public class MyList<E> {
+public class SingleLinkedList<E> {
     /**
      * 头结点
      */
@@ -24,7 +24,7 @@ public class MyList<E> {
     /**
      * 无参构造方法
      */
-    public MyList() {
+    public SingleLinkedList() {
     }
 
     /**
