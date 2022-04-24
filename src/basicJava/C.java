@@ -12,6 +12,9 @@ public class C {
         B b = (B)new A();
         //C c = (C)b;
         //System.out.println(c.getAge());
+
+
+
     }
 
 }
