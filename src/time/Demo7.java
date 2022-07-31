@@ -22,3 +22,4 @@ public class Demo7 {
         System.out.println(lastDay);
     }
 }
+
